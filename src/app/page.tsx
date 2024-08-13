@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { RootState } from "./redux/store";
 import { setMovies, setPage } from "./redux/moviesSlice";
+import SearchBar from "./components/SearchBar/SearchBar";
 import MoviesList from "./components/MoviesList";
 import Pagination from "./components/Pagination";
 
@@ -31,7 +32,7 @@ const Home = () => {
         {
           headers: {
             accept: "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2Q2NjIzZmJjOGVjOGU0OGExYzUyNjU4ZTBlYjg0MyIsInN1YiI6IjY1ZjRhZTg2NTExZDA5MDE3ZDM5YjkyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._L-nRJbFrPwmJUfhjY7fqyZjRiMfZW0T9Iw6_7DiB9E`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PERSONAL}`,
           },
         },
       );
@@ -42,6 +43,7 @@ const Home = () => {
           results: response.data.results,
           total_pages: response.data.total_pages,
           total_results: response.data.total_results,
+          movieDetails: null,
         }),
       );
     } catch (error) {
@@ -57,6 +59,7 @@ const Home = () => {
 
   return (
     <main className="container mx-auto p-4">
+      <SearchBar />
       <MoviesList />
       <Pagination
         currentPage={currentPage}

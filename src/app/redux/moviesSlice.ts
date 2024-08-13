@@ -17,11 +17,16 @@ export interface Movie {
   vote_count: number;
 }
 
+export interface MovieDetails extends Movie {
+  genres: { id: number; name: string }[];
+}
+
 interface MoviesState {
   page: number;
   results: Movie[];
   total_pages: number;
   total_results: number;
+  movieDetails: MovieDetails | null;
 }
 
 const initialState: MoviesState = {
@@ -29,6 +34,7 @@ const initialState: MoviesState = {
   results: [],
   total_pages: 0,
   total_results: 0,
+  movieDetails: null,
 };
 
 const moviesSlice = createSlice({
@@ -45,8 +51,11 @@ const moviesSlice = createSlice({
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload;
     },
+    setMovieDetails(state, action: PayloadAction<MovieDetails>) {
+      state.movieDetails = action.payload;
+    },
   },
 });
 
-export const { setMovies, setPage } = moviesSlice.actions;
+export const { setMovies, setPage, setMovieDetails } = moviesSlice.actions;
 export default moviesSlice.reducer;
