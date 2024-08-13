@@ -24,7 +24,7 @@ const MovieDetailsPage = ({ params }: { params: { movieId: string } }) => {
         {
           headers: {
             accept: "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2Q2NjIzZmJjOGVjOGU0OGExYzUyNjU4ZTBlYjg0MyIsInN1YiI6IjY1ZjRhZTg2NTExZDA5MDE3ZDM5YjkyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._L-nRJbFrPwmJUfhjY7fqyZjRiMfZW0T9Iw6_7DiB9E`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PERSONAL}`,
           },
         },
       );

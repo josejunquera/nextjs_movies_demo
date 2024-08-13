@@ -10,7 +10,7 @@ const SearchBar: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleSearch = async () => {
-    if (query.trim() === "") return; // No hacer búsqueda si el query está vacío
+    if (query.trim() === "") return;
 
     try {
       const response = await axios.get(
@@ -18,7 +18,7 @@ const SearchBar: React.FC = () => {
         {
           headers: {
             accept: "application/json",
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiM2Q2NjIzZmJjOGVjOGU0OGExYzUyNjU4ZTBlYjg0MyIsInN1YiI6IjY1ZjRhZTg2NTExZDA5MDE3ZDM5YjkyYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._L-nRJbFrPwmJUfhjY7fqyZjRiMfZW0T9Iw6_7DiB9E`,
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY_PERSONAL}`,
           },
         },
       );
@@ -32,7 +32,7 @@ const SearchBar: React.FC = () => {
           movieDetails: null,
         }),
       );
-      dispatch(setPage(1)); // Reset to the first page
+      dispatch(setPage(1));
     } catch (error) {
       console.error("Error fetching search results:", error);
     }
