@@ -8,6 +8,7 @@ import { setMovies, setPage } from "./redux/moviesSlice";
 import SearchBar from "./components/SearchBar/SearchBar";
 import MoviesList from "./components/MoviesList";
 import Pagination from "./components/Pagination";
+import Link from "next/link";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const Home = () => {
 
   return (
     <main className="container mx-auto p-4">
+      <Link href="/mylist">My List</Link>
       <SearchBar />
       <MoviesList />
       <Pagination

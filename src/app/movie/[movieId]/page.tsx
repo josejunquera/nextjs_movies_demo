@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../app/redux/store";
 import axios from "axios";
 import { setMovieDetails, MovieDetails } from "../../../app/redux/moviesSlice";
+import RatingForm from "../../components/RatingForm/RatingForm";
 
 const MovieDetailsPage = ({ params }: { params: { movieId: string } }) => {
-  const { movieId } = params;
+  const movieId = Number(params.movieId);
   const dispatch = useDispatch();
   const movie = useSelector((state: RootState) => state.movies.movieDetails);
 
@@ -64,6 +65,7 @@ const MovieDetailsPage = ({ params }: { params: { movieId: string } }) => {
           ))}
         </div>
       </div>
+      <RatingForm movieId={movieId} />
     </div>
   );
 };

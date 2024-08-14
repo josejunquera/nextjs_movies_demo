@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ProviderComponent from "../app/redux/provider";
+import GuestSessionInitializer from "./components/GuestSessionInitializer/GuestSessionInitializer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ProviderComponent>{children}</ProviderComponent>
+        <ProviderComponent>
+          <GuestSessionInitializer />
+          {children}
+        </ProviderComponent>
       </body>
     </html>
   );
