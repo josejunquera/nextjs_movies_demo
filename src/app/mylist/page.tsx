@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { setRatedMovies } from "../redux/moviesSlice";
 import Header from "../components/Header/Header";
+import Spinner from "../components/Spinner/Spinner";
 import RatedMoviesList from "../components/RatedMoviesList/RatedMoviesList";
 
 const MyList = () => {
@@ -47,7 +48,9 @@ const MyList = () => {
       <Header />
       <div className="container mx-auto py-4">
         <h1 className="text-2xl font-bold">My Rated Movies</h1>
-        <RatedMoviesList />
+        <Suspense fallback={<Spinner />}>
+          <RatedMoviesList />
+        </Suspense>
       </div>
     </>
   );

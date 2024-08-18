@@ -29,7 +29,6 @@ const SearchBar: React.FC = () => {
           results: response.data.results,
           total_pages: response.data.total_pages,
           total_results: response.data.total_results,
-          movieDetails: null,
         }),
       );
       dispatch(setPage(1));

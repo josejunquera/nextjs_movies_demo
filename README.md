@@ -14,23 +14,18 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+He desarrollado la aplicación web usando React 18 como se indica en los requisitos de la prueaba técnica. Apesar de no tener experiencia con Next.js, al ver la documentación oficial de React más actualizada veo que el uso de frameworks como Next es altamente recomendado, y prácticamente un requisito y standard para la creación de aplicaciones modernas.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+En cuanto a la gestión del estado global dentro de la aplicación, tengo experiencia con Redux Vanilla pero al ser un requisito de la prueba técnica opto por el uso de Redux Toolkit. Me ha gustado mucho por su simplicidad frente al uso de Redux tradicional.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+En cuanto a los estado global de la aplicación he trabajado con 2 slices:
+-guestSessionSlice: Maneja la creación y persistencia de sesiones de invitado, permitiendo a los usuarios calificar películas sin necesidad de autenticación.
+-moviesSlice: Administra la información de las películas, incluyendo listado de películas destacadas, detalles específicos de películas individuales y listado películas calificadas por el usuario.
 
-## Learn More
+La aplicación está diseñada con una estructura de componentes muy simple, donde cada componente tiene una responsabilidad clara. Componentes como MovieCard, MoviesList, y RatingForm se encargan de renderizar la información relacionada con las películas, mientras que GuestSessionInitializer asegura que los usuarios tengan una sesión activa para calificar películas cuando que se inizializa la aplicación.
 
-To learn more about Next.js, take a look at the following resources:
+Normalmente me gusta trabajar con una estructura de componentes tipo atom design, pero por la sencillez del proyecto y el poco tiempo que le he podido dedicar me ha parecido mejor opción simplificar la estructura de componentes y hacerlo de una forma más directa.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Las solicitudes a la API de TMDb se manejan con Axios, aprovechando su capacidad para configurar un cliente HTTP con cabeceras personalizadas. La clave API se almacena de manera segura usando variables de entorno.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+He elegido Tailwind CSS principalmente por la limpieza y rapidez en la creación de diseños responsive y modernos. Todos los estilos de la aplicación están implementados utilizando clases de Tailwind, lo que facilita la gestión y modificación de los estilos a lo largo del proyecto.
