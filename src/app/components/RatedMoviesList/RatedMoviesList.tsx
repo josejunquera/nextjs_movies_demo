@@ -6,10 +6,14 @@ import Spinner from "../Spinner/Spinner";
 
 const MovieCard = React.lazy(() => import("../MovieCard/MovieCard"));
 
-const MoviesList: React.FC = () => {
+const RatedMoviesList: React.FC = () => {
   const movies: Movie[] = useSelector(
-    (state: RootState) => state.movies.results,
+    (state: RootState) => state.movies.ratedMovies,
   );
+
+  if (movies.length === 0) {
+    return <p>No rated movies found. Rate some movies!</p>;
+  }
 
   return (
     <div className="grid grid-cols-1 gap-4 pb-24 pt-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -22,4 +26,4 @@ const MoviesList: React.FC = () => {
   );
 };
 
-export default MoviesList;
+export default RatedMoviesList;

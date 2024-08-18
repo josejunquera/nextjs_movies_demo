@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { RootState } from "./redux/store";
-import { setMovies, setPage } from "./redux/moviesSlice";
-import SearchBar from "./components/SearchBar/SearchBar";
-import MoviesList from "./components/MoviesList";
+import { setMovies, clearMovies, setPage } from "./redux/moviesSlice";
+import Header from "./components/Header/Header";
 import Pagination from "./components/Pagination";
+import Spinner from "./components/Spinner/Spinner";
+
+const MoviesList = React.lazy(() => import("./components/MoviesList"));
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -16,14 +18,12 @@ const Home = () => {
     (state: RootState) => state.movies.total_pages,
   );
   const movies = useSelector((state: RootState) => state.movies.results);
+  const loading = useSelector((state: RootState) => state.movies.loading);
 
   useEffect(() => {
+    dispatch(clearMovies());
     fetchMovies(currentPage);
   }, [currentPage]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [movies]);
 
   const fetchMovies = async (page: number) => {
     try {
@@ -43,7 +43,6 @@ const Home = () => {
           results: response.data.results,
           total_pages: response.data.total_pages,
           total_results: response.data.total_results,
-          movieDetails: null,
         }),
       );
     } catch (error) {
@@ -58,15 +57,23 @@ const Home = () => {
   };
 
   return (
-    <main className="container mx-auto p-4">
-      <SearchBar />
-      <MoviesList />
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-    </main>
+    <>
+      <Header />
+      <main className="container mx-auto py-4">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Suspense fallback={<Spinner />}>
+            <MoviesList />
+          </Suspense>
+        )}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </main>
+    </>
   );
 };
 

@@ -29,7 +29,6 @@ const SearchBar: React.FC = () => {
           results: response.data.results,
           total_pages: response.data.total_pages,
           total_results: response.data.total_results,
-          movieDetails: null,
         }),
       );
       dispatch(setPage(1));
@@ -45,18 +44,18 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="mb-4">
+    <div>
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Search for movies..."
-        className="rounded border border-gray-300 p-2 text-black"
+        className="rounded bg-gray-200 p-2 text-sm text-black"
       />
       <button
         onClick={handleSearch}
-        className="ml-2 rounded bg-blue-500 p-2 text-white"
+        className="ml-2 rounded bg-gray-600 p-2 text-sm font-bold text-white hover:bg-gray-500"
       >
         Search
       </button>
