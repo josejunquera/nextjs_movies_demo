@@ -5,13 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../app/redux/store";
 import axios from "axios";
 import { setMovieDetails, MovieDetails } from "../../../app/redux/moviesSlice";
+import Header from "@/app/components/Header/Header";
 import RatingForm from "../../components/RatingForm/RatingForm";
 
-const MovieDetailsPage = ({ params }: { params: { movieId: string } }) => {
+interface MovieDetailsPageProps {
+  params: {
+    movieId: string;
+  };
+}
+
+const MovieDetailsPage: React.FC<MovieDetailsPageProps> = ({ params }) => {
   const movieId = Number(params.movieId);
   const dispatch = useDispatch();
-  const movie = useSelector((state: RootState) => state.movies.movieDetails);
-
+  const movie = useSelector<RootState, MovieDetails | null>(
+    (state) => state.movies.movieDetails,
+  );
   useEffect(() => {
     if (movieId) {
       fetchMovieDetails();
@@ -39,34 +47,43 @@ const MovieDetailsPage = ({ params }: { params: { movieId: string } }) => {
   if (!movie) return <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col items-center">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="w-full max-w-xs rounded-lg"
-        />
-        <h1 className="my-4 text-3xl font-bold">{movie.title}</h1>
-        <p className="mb-4 text-lg text-gray-700">{movie.overview}</p>
-        <p className="text-sm text-gray-600">
-          Release Date: {movie.release_date}
-        </p>
-        <p className="text-sm text-gray-600">
-          Rating: {movie.vote_average.toFixed(1)} ({movie.vote_count} votes)
-        </p>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {movie.genres.map((genre) => (
-            <span
-              key={genre.id}
-              className="rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700"
-            >
-              {genre.name}
-            </span>
-          ))}
+    <>
+      <Header />
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col items-start text-white md:flex-row md:items-start lg:gap-6">
+          <div className="flex w-full justify-center md:w-1/3">
+            <img
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.title}
+              className="w-full max-w-[500px] rounded-lg"
+            />
+          </div>
+
+          <div className="mt-6 w-full md:mt-0 md:w-2/3 md:pl-8">
+            <h1 className="text-2xl font-bold md:text-3xl">{movie.title}</h1>
+            <p className="pt-4 font-bold md:text-lg">
+              Release Date:{" "}
+              {new Date(movie.release_date).toLocaleDateString("es-ES")}
+            </p>
+            <div className="flex flex-wrap gap-2 py-4">
+              {movie.genres.map((genre) => (
+                <span
+                  key={genre.id}
+                  className="rounded-full bg-gray-700 px-3 py-1 text-sm font-semibold"
+                >
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+            <p className="mb-4">{movie.overview}</p>
+            <p className="md:text-lg">
+              Rating: {movie.vote_average.toFixed(1)} ({movie.vote_count} votes)
+            </p>
+            <RatingForm movieId={movieId} />
+          </div>
         </div>
       </div>
-      <RatingForm movieId={movieId} />
-    </div>
+    </>
   );
 };
 

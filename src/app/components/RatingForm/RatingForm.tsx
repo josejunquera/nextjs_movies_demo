@@ -46,33 +46,32 @@ const RatingForm: React.FC<RatingFormProps> = ({ movieId }) => {
   };
 
   return (
-    <div className="rating-form">
-      <h3>Rate this movie</h3>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="rating">Rating:</label>
+    <div className="mt-8 max-w-[400px] rounded-lg bg-gray-800 p-6 text-white shadow-md">
+      <h3 className="mb-4 text-lg font-bold">Rate this movie</h3>
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <select
           id="rating"
           value={rating ?? ""}
           onChange={(e) => setRating(Number(e.target.value))}
-          className="rounded border border-gray-300 p-2 text-black"
+          className="rounded bg-gray-200 p-2 text-sm text-black"
         >
           <option value="" disabled>
             Select rating
           </option>
           {[...Array(10)].map((_, i) => (
-            <option key={i + 1} value={i + 1}>
+            <option key={i + 1} value={i + 1} className="text-sm">
               {i + 1}
             </option>
           ))}
         </select>
         <button
           type="submit"
-          className="ml-2 rounded bg-blue-500 p-2 text-white"
+          className="rounded bg-blue-500 p-2 text-sm font-bold text-white hover:bg-blue-400"
         >
           Submit
         </button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="mt-4 text-sm">{message}</p>}
     </div>
   );
 };

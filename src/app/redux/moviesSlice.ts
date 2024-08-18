@@ -27,6 +27,7 @@ interface MoviesState {
   total_pages: number;
   total_results: number;
   movieDetails: MovieDetails | null;
+  ratedMovies: Movie[];
 }
 
 const initialState: MoviesState = {
@@ -35,6 +36,7 @@ const initialState: MoviesState = {
   total_pages: 0,
   total_results: 0,
   movieDetails: null,
+  ratedMovies: [],
 };
 
 const moviesSlice = createSlice({
@@ -54,8 +56,12 @@ const moviesSlice = createSlice({
     setMovieDetails(state, action: PayloadAction<MovieDetails>) {
       state.movieDetails = action.payload;
     },
+    setRatedMovies(state, action: PayloadAction<Movie[]>) {
+      state.ratedMovies = action.payload;
+    },
   },
 });
 
-export const { setMovies, setPage, setMovieDetails } = moviesSlice.actions;
+export const { setMovies, setPage, setMovieDetails, setRatedMovies } =
+  moviesSlice.actions;
 export default moviesSlice.reducer;

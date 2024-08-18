@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { RootState } from "./redux/store";
 import { setMovies, setPage } from "./redux/moviesSlice";
-import SearchBar from "./components/SearchBar/SearchBar";
+import Header from "./components/Header/Header";
 import MoviesList from "./components/MoviesList";
 import Pagination from "./components/Pagination";
-import Link from "next/link";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -45,6 +44,7 @@ const Home = () => {
           total_pages: response.data.total_pages,
           total_results: response.data.total_results,
           movieDetails: null,
+          ratedMovies: [],
         }),
       );
     } catch (error) {
@@ -59,16 +59,17 @@ const Home = () => {
   };
 
   return (
-    <main className="container mx-auto p-4">
-      <Link href="/mylist">My List</Link>
-      <SearchBar />
-      <MoviesList />
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-    </main>
+    <>
+      <Header />
+      <main className="container mx-auto py-4">
+        <MoviesList />
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </main>
+    </>
   );
 };
 
